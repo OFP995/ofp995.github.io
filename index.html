@@ -4,22 +4,35 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vue Basics</title>
-    <link rel="stylesheet" href="theme.css" />
+    <link rel="stylesheet" href="/theme.css" />
 
   </head>
   <body>
 
 
 
-  <div class="container pt-5" id="app">
+  <div class="container" id="app">
 
-    <div class="card center">
-      <h1> Мой счетчик 😀 : {{ counter }}</h1>
-      <div>
-        <button class="btn primary">Добавить</button>
-        <button class="btn danger">Вычесть</button>
+    <div class="card">
+      <h1> {{ title }} </h1>
+      <div class="form-control">
+        <input type="text"
+               v-bind:placeholder=" placeholderString "
+               v-bind:value="inputValue"
+               v-on:input="inputChangeHandler"
+               v-on:keypress.enter="addNewNote"
+        /> <!-- по нажатию enter вызывается метод addNewNote -->
+
       </div>
+      <button class="btn" v-on:click="addNewNote">Добавить</button>
+      <hr />   <!-- создает черту -->
+      <ul class="list"></ul>
+      <li class="list-item" v-for="(myNotes, idx) in notes">  <!-- myNotes это названия цикла,имя любое, idx - индекс (номер) заметки -->
+        {{idx + 1}}) {{myNotes}}
+        <button class="btn danger" v-on:click="removeNote(idx)" >удалить</button>   <!-- добавление кнопки удалить справа от заметки -->
+      </li>
     </div>
+
   </div>
 
 

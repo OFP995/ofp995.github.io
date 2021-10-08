@@ -1,11 +1,26 @@
 const App = {
-    data() {
+    data() {      //данные
         return {
-            counter: 0
+            placeholderString: 'Введите название заметки',
+            title: 'Список заметок',
+            inputValue: '',
+            notes: ['Заметка 1', 'Заметка 2','Заметка 25']
         }
-    }
+    },
+    // метод, где перечисляем обьекты и набор функции которые присутствуют в приложении
+ methods: {
+     inputChangeHandler(event){
+            // console.log('inputChangeHandler', event.target.value)   //путь где лежат данные что вводили в строке
+             this.inputValue = event.target.value     //this - обращение к data где лежат переменные и им присвается значение из пути куда записываются данный пользователь
+         },
+         addNewNote() {
+         this.notes.push(this.inputValue)
+             this.inputValue ='' // пустая строка после ввода информации
+     },
+     removeNote(idx) {
+         this.notes.splice(idx, 1)  // начинаем удаление с индекса idx и удаляем один элемент
+     }
+ }
 }
 
-const app = Vue.createApp(App)
-
-app.mount('#app')
+Vue.createApp(App).mount('#app')
