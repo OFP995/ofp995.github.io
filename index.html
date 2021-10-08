@@ -24,6 +24,7 @@
         /> <!-- по нажатию enter вызывается метод addNewNote -->
 
       </div>
+      <button class="btn" v-on:click="addNewNote">Добавить</button>//кнопка исчезла
       <hr />   <!-- создает черту -->
       <ul class="list"></ul>
       <li class="list-item" v-for="(myNotes, idx) in notes">  <!-- myNotes это названия цикла,имя любое, idx - индекс (номер) заметки -->
