@@ -14,7 +14,7 @@ const App = {
             this.inputValue = event.target.value     //this - обращение к data где лежат переменные и им присвается значение из пути куда записываются данный пользователь
         },
         addNewNote() {
-            if(this.inputValue != '')//Если строка не пустая
+            if(this.inputValue != '')//Если строка не пустая!
                 this.notes.push(this.inputValue)//Тут в список переменной note добавляется введённая вользователем строка this.inputValue
             this.inputValue = '' // пустая строка после ввода информации
         },
