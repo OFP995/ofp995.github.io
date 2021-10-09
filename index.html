@@ -1,44 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Vue Basics</title>
-    <link rel="stylesheet" href="/theme.css" />
+    <link rel="stylesheet" href="/theme.css"/>
 
-  </head>
-  <body>
+</head>
+<body>
 
 
-
-  <div class="container" id="app">
+<div class="container" id="app">
 
     <div class="card">
-      <h1> {{ title }} </h1>
-      <div class="form-control">
-        <input type="text"
-               v-bind:placeholder=" placeholderString "
-               v-bind:value="inputValue"
-               v-on:input="inputChangeHandler"
-               v-on:keypress.enter="addNewNote"
-        /> <!-- по нажатию enter вызывается метод addNewNote -->
+        <h1 :style="{
+        color: inputValue.length <4 ? 'darkred' : 'darkblue',
+        fontSize: inputValue.length <4 ? '2rem' : '1.5rem'
+        }"> {{ title }} </h1>
+        <div class="form-control">
+            <input type="text"
+                   :placeholder=" placeholderString "
+                   v-model="inputValue"
+                   @keypress.enter="addNewNote"
+            />
+            <!-- v-model заменяет @input and :value -->
+            <!-- по нажатию enter вызывается метод addNewNote -->
 
-      </div>
-      <button class="btn" v-on:click="addNewNote">Добавить</button>
-      <hr />   <!-- создает черту -->
-      <ul class="list" v-if="notes.length !== 0">
-      <li class="list-item" v-for="(myNotes, idx) in notes">  <!-- myNotes это названия цикла,имя любое, idx - индекс (номер) заметки -->
-        {{idx + 1}}) {{myNotes}}
-        <button class="btn danger" v-on:click="removeNote(idx)" >удалить</button>   <!-- добавление кнопки удалить справа от заметки -->
-      </li>
-      </ul>
-      <div v-else>Заметок пока нет. Добавьте первую.</div>
+        </div>
+        <button class="btn" @click="addNewNote">Добавить</button>
+        <hr/>   <!-- создает черту -->
+        <ul class="list" v-if="notes.length !== 0">
+            <li class="list-item" v-for="(myNotes, idx) in notes">
+                <!-- myNotes это названия цикла,имя любое, idx - индекс (номер) заметки -->
+
+<!--                первый вариант-->
+
+<!--               <span :class="myNotes.length > 5 ? 'primary' : 'bold' ">{{idx + 1}}) {{toUpperCase(myNotes)}} </span>-->
+
+<!--                второй вариант -->
+
+<!--                <span :class="{-->
+<!--                'primary' :true,-->
+<!--                'bold' : myNotes.length > 5-->
+<!--                }">{{idx + 1}}) {{toUpperCase(myNotes)}} </span>-->
+
+                <span :class="['bold',{'primary':myNotes.length >4}]">{{idx + 1}}) {{toUpperCase(myNotes)}} </span>
+                <button class="btn danger" @click="removeNote(idx)">удалить</button>
+                <!-- добавление кнопки удалить справа от заметки -->
+            </li>
+            <hr>
+            <li>
+                <strong>Общее количество: {{notes.length}}</strong> | Удвоенное: {{doubleCount()}}
+            </li>
+        </ul>
+        <div v-else>Заметок пока нет. Добавьте первую.</div>
     </div>
 
-  </div>
+</div>
 
 
-  <script src="https://unpkg.com/vue@next"></script>
-  <script src="app.js"></script>
-  </body>
+<script src="https://unpkg.com/vue@next"></script>
+<script src="app.js"></script>
+</body>
 </html>
