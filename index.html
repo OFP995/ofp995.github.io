@@ -5,55 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Vue Basics</title>
     <link rel="stylesheet" href="/theme.css"/>
-
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
 </head>
 <body>
 
 
-<div class="container" id="app">
+<div class="container pt-5" id="app" v-cloak>
 
-    <div class="card">
-        <h1 :style="{
-        color: inputValue.length <4 ? 'darkred' : 'darkblue',
-        fontSize: inputValue.length <4 ? '2rem' : '1.5rem'
-        }"> {{ title }} </h1>
-        <div class="form-control">
-            <input type="text"
-                   :placeholder=" placeholderString "
-                   v-model="inputValue"
-                   @keypress.enter="addNewNote"
-            />
-            <!-- v-model заменяет @input and :value -->
-            <!-- по нажатию enter вызывается метод addNewNote -->
+    <div class="card center">
+        <div v-html="myHtml"></div>
+        <!--  <h2 >{{ title }}</h2>-->
+        <!--       <h2 v-once>{{title}}</h2>-->
+        <!--        <h2 v-pre>{{ title }}</h2>-->
 
-        </div>
-        <button class="btn" @click="addNewNote">Добавить</button>
-        <hr/>   <!-- создает черту -->
-        <ul class="list" v-if="notes.length !== 0">
-            <li class="list-item" v-for="(myNotes, idx) in notes">
-                <!-- myNotes это названия цикла,имя любое, idx - индекс (номер) заметки -->
-
-<!--                первый вариант-->
-
-<!--               <span :class="myNotes.length > 5 ? 'primary' : 'bold' ">{{idx + 1}}) {{toUpperCase(myNotes)}} </span>-->
-
-<!--                второй вариант -->
-
-<!--                <span :class="{-->
-<!--                'primary' :true,-->
-<!--                'bold' : myNotes.length > 5-->
-<!--                }">{{idx + 1}}) {{toUpperCase(myNotes)}} </span>-->
-
-                <span :class="['bold',{'primary':myNotes.length >4}]">{{idx + 1}}) {{toUpperCase(myNotes)}} </span>
-                <button class="btn danger" @click="removeNote(idx)">удалить</button>
-                <!-- добавление кнопки удалить справа от заметки -->
+        <!--        <button class="btn"-->
+        <!--        @click="title='другое название'"-->
+        <!--        >изменить название</button>-->
+        <ul class="list" v-if="items.length">
+            <li class="list-item" v-for="(item, i) in items"
+            @click="items.splice(i,1)">      <!-- удаление строки по клику на нее-->
+               <strong>{{item}}</strong>&nbsp;
+                <input type="text" @click.stop> <!-- аналог @click="stopPropagation"-->
             </li>
-            <hr>
-            <li>
-                <strong>Общее количество: {{notes.length}}</strong> | Удвоенное: {{doubleCount()}}
-            </li>
+<!--        <li class="list-item" v-for ="(value,i) in person">-->
+<!--           {{i}}    {{value}}-->
+
+<!--        </li>-->
         </ul>
-        <div v-else>Заметок пока нет. Добавьте первую.</div>
+        <h3
+        v-else>Элементов нет</h3>
     </div>
 
 </div>
